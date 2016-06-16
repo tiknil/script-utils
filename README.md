@@ -28,7 +28,8 @@ Modalità di utilizzo:
     -l, --languages en, it           Lista di lingue dei file localizzati (es: en, it, es) - 
                                       Valido solo per Android. 
                                       Per iOS vengono controllate le cartelle en.lproj etc. presenti nella cartella "Resources"
-    
+    -f, --force                      Per non attendere la conferma interattiva dell'utente ma eseguire direttamente il comando.
+                                     Utile per utilizzarlo nei tool automatici
     -h, --help                       Visualizza help
    ```
 
