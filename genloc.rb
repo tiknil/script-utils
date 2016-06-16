@@ -48,6 +48,10 @@ parser = OptionParser.new do|opts|
 		options[:languages] = list;
 	end
 
+	opts.on('-f', '--force',  'Per forzare l\'esecuzione del comando senza conferma da parte dell\'utente. Utile per utilizzare lo script nei processi di build automatizzati') do |force|
+		options[:force] = force;
+	end
+
 	opts.on_tail("-h", "--help", "Visualizza help") do
         puts opts
         exit
@@ -72,9 +76,13 @@ if (options[:os] == nil ||
 	abort "Indicare il sistema operativo per cui si vogliono creare i file localizzati (valori possibili: 'ios', 'android')"
 end
 
-puts "Avvio il processo di generazione delle stringhe localizzate per i seguenti parametri:\n - file twine: " + options[:twine_file].to_s + "\n - path: " + options[:project_path].to_s + "\n - os: " + options[:os].to_s + "\n Confermi (Y/n)?"
+if options[:force] == nil then
+	puts "Avvio il processo di generazione delle stringhe localizzate per i seguenti parametri:\n - file twine: " + options[:twine_file].to_s + "\n - path: " + options[:project_path].to_s + "\n - os: " + options[:os].to_s + "\n Confermi (Y/n)?"
+	$confirm = STDIN.gets.chomp	
+else
+	$confirm = "Y"
+end
 
-$confirm = STDIN.gets.chomp
 if $confirm == "Y"
 	
 	if gem_available?('twine') 
