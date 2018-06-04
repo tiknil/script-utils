@@ -1,5 +1,5 @@
 #!/usr/bin/ruby -w
-# 
+#
 # Questo script serve per automatizzare il processo di aggiornamento delle strighe di traduzione per progetti multipiattaforma
 #
 # GENerate LOCalizations
@@ -26,7 +26,7 @@ end
 ## MAIN PROGRAM
 ############################################################################################################################################
 
-## Definizione delle opzioni che il comando ./boilerplate.rb può ricevere
+## Definizione delle opzioni che il comando ./genloc.rb può ricevere
 options = {:project_name => nil, :project_path => nil, :os => nil}
 
 parser = OptionParser.new do|opts|
@@ -61,36 +61,36 @@ parser.parse!
 ##
 
 #Controllo argomenti non nulli
-if (options[:twine_file] == nil || 
+if (options[:twine_file] == nil ||
 	options[:twine_file] == "")
 	abort "Indicare il path del file twine"
 end
 
-if (options[:project_path] == nil || 
+if (options[:project_path] == nil ||
 	options[:project_path] == "")
 	abort "Indicare il path del progetto"
 end
 
-if (options[:os] == nil || 
+if (options[:os] == nil ||
 	options[:os] == "")
 	abort "Indicare il sistema operativo per cui si vogliono creare i file localizzati (valori possibili: 'ios', 'android')"
 end
 
 if options[:force] == nil then
 	puts "Avvio il processo di generazione delle stringhe localizzate per i seguenti parametri:\n - file twine: " + options[:twine_file].to_s + "\n - path: " + options[:project_path].to_s + "\n - os: " + options[:os].to_s + "\n Confermi (Y/n)?"
-	$confirm = STDIN.gets.chomp	
+	$confirm = STDIN.gets.chomp
 else
 	$confirm = "Y"
 end
 
 if $confirm == "Y"
-	
-	if gem_available?('twine') 
-		
+
+	if gem_available?('twine')
+
 		if !File.file? options[:twine_file]
 			abort "Il file twine non esiste al percorso indicato (" + options[:twine_file] + "). Controllare gli argomenti passati e riprovare"
 		end
-		
+
 		case options[:os].to_s
 		when "android"
 			$dest_path = options[:project_path] + "/app/src/main/res/values/"
@@ -133,7 +133,7 @@ if $confirm == "Y"
 			abort "Il sistema operativo passato non è stato riconosciuto. Puoi usare i valori 'ios' o 'android'"
 		end
 
-	else 
+	else
 		abort "Installa prima twine per eseguire il comando genloc: gem install twine"
 	end
 else
