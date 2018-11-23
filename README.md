@@ -49,7 +49,11 @@ Modalità di utilizzo:
 
 E' uno script che permette di tradurre i file twine in `xlsx` e viceversa.
 
-I comandi disponibili sono: `import` ed `export`.
+Scaricare il sorgente e renderlo eseguibile con il comando:
+`chmod +x twine2xls.rb`
 
-`export` TWINE => XLSX
-`import` XLSX => TWINE
+Per eseguire l'importazione (da `xlsx` a twine):
+`./twine2xls.rb import -i [path file excel di input] -o [path file twine di output]`
+
+Per eseguire l'esportazione (da twine a `xlsx`):
+`./twine2xls.rb export -i [path file twine di input] -o [path file excel di output]`
