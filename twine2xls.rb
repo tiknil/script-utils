@@ -17,8 +17,7 @@ $section_background_color = 'a3fff5'
 #definizione lingue gestite
 $languages = {
   "it" => {:desc => "Italiano (it)", :index => 1},
-  "en" => {:desc => "Inglese (en)", :index => 2},
-  "pl" => {:desc => "Polacco (pl)", :index => 3}
+  "en" => {:desc => "Inglese (en)", :index => 2}
 }
 
 ############################################################################################################################################
@@ -40,7 +39,10 @@ begin
   require 'tty-spinner'       # per gli spinner indefiniti nel terminale
   require 'rubygems'          # dipendenza di rubyXL
   require 'rubyXL'            # per leggere e scrivere i file xlsx
-rescue LoadError
+  require 'rubyXL/convenience_methods'
+
+  rescue LoadError
+
   # Installazione dipendenze
   puts "Installazione dipendenze mancanti in corso..."
   # Non posso usare Utils.require_authentication in questo punto
@@ -131,7 +133,7 @@ class Twine2xls < Thor
           end
 
           if !found
-            row_index += 1
+            #row_index += 1
           end
         end
       end
@@ -139,6 +141,7 @@ class Twine2xls < Thor
 
     # Scrivo il file Excel nel percorso di output
     workbook.write(options[:output])
+    File.chmod(0777, options[:output])
     spinner.success
   end
 
@@ -169,7 +172,7 @@ class Twine2xls < Thor
           if row.size == 0
             out << "\n"
           elsif row.size == 1
-            out << "[[#{row[0].value}]]\n"
+            out << "\n[[#{row[0].value}]]\n"
           else
             if row[0] == nil || row[0].value == nil || row[0].value.to_s.empty?
               out << "\n"
@@ -184,6 +187,7 @@ class Twine2xls < Thor
           end
         end
       }
+      File.chmod(0777, options[:output])
     end
   end
 
